@@ -29,7 +29,6 @@ def search(*args, **kwargs) -> List[Dict]:
     #    )
     #)
 
-
     #response = es_client.search(
     #    index=index_name,
     #    query=dict(
@@ -47,8 +46,7 @@ def search(*args, **kwargs) -> List[Dict]:
                 "must": {
                     "multi_match": {
                         "query": query,
-                        # "fields": ["question"],
-                        "fields": ["question^3", "text", "section"],
+                        "fields": ["question^3", "text", "section"], # ["question"],
                         "type": "best_fields"
                     }
                 },
