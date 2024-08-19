@@ -82,7 +82,7 @@ def load_data(*args, **kwargs):
     # Specify your data loading logic here
 
     faq_documents = {
-        'llm-zoomcamp': '1qZjwHkvP0lXHiE4zdbWyUXSVfmVGzougDD6N37bat3E',
+        'llm-zoomcamp': '1T3MdwUvqCL3jrh3d3VCXQ8xE0UqRzI3bfgpfBq3ZWG0',
     }
 
     documents = []

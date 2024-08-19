@@ -13,7 +13,7 @@ blocks:
   language: python
   name: Magnetic quantum
   retry_config: null
-  status: not_executed
+  status: executed
   timeout: null
   type: data_loader
   upstream_blocks: []
@@ -32,7 +32,7 @@ blocks:
   language: python
   name: Plasmatic cosmos
   retry_config: null
-  status: not_executed
+  status: failed
   timeout: null
   type: transformer
   upstream_blocks: []
@@ -108,7 +108,7 @@ blocks:
   language: python
   name: Astral quasar
   retry_config: null
-  status: not_executed
+  status: failed
   timeout: null
   type: data_exporter
   upstream_blocks: []
@@ -120,12 +120,12 @@ blocks:
       content: null
       extension: py
       language: python
-      modified_timestamp: 1724093134
+      modified_timestamp: 1724096493
       name: chimeric_behemoth.py
       output: null
       path: /home/src/llm/rager/data_loaders/chimeric_behemoth.py
       relative_path: llm/rager/data_loaders/chimeric_behemoth.py
-      size: 1493
+      size: 2030
     file_source:
       path: rager/data_loaders/chimeric_behemoth.py
     templates:
@@ -133,7 +133,7 @@ blocks:
         variables:
           chunk_column: document_id
           connection_string: http://elasticsearch:9200
-          index_name: documents_20240819_3944
+          index_name: documents_20240819_0934
           vector_column_name: embedding
   downstream_blocks: []
   executor_config: null
@@ -192,6 +192,6 @@ tags: []
 type: python
 uuid: metaphysical_catalyst
 variables:
-  index_name: documents_20240819_1306
+  index_name: documents_20240819_0934
 variables_dir: /home/src/mage_data/rager
 widgets: []
