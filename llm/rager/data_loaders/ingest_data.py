@@ -80,15 +80,11 @@ def load_data(*args, **kwargs):
         Anything (e.g. data frame, dictionary, array, int, str, etc.)
     """
     # Specify your data loading logic here
-
-    faq_documents = {
-        'llm-zoomcamp': '1T3MdwUvqCL3jrh3d3VCXQ8xE0UqRzI3bfgpfBq3ZWG0',
-    }
-
+    faq_documents = { 'llm-zoomcamp': kwargs['file_id']}
     documents = []
 
     for course, file_id in faq_documents.items():
-        print(course)
+        # print(course)
         course_documents = read_faq(file_id)
         documents.append({'course': course, 'documents': course_documents})    
 

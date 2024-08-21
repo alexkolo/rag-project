@@ -12,10 +12,11 @@ if 'test' not in globals():
 @data_loader
 def search(*args, **kwargs) -> List[Dict]:
     connection_string = kwargs.get('connection_string', 'http://localhost:9200')
-    index_name = kwargs.get('index_name', 'documents')
-    source = kwargs.get('source', "cosineSimilarity(params.query_vector, 'embedding') + 1.0")
+    index_name = 'documents_20240821_3424' # kwargs['index_name'] # .get('index_name', 'documents_20240821_5834')
+    print(index_name)
+    # source = kwargs.get('source', "cosineSimilarity(params.query_vector, 'embedding') + 1.0")
     top_k = kwargs.get('top_k', 5)
-    chunk_column = kwargs.get('chunk_column', 'content')
+    # chunk_column = kwargs.get('chunk_column', 'content')
 
     es_client = Elasticsearch(connection_string)
 
@@ -38,9 +39,9 @@ def search(*args, **kwargs) -> List[Dict]:
     #    ),
     #)
 
-    query = "When is the next cohort?"
+    query = kwargs.get('query', "When is the next cohort?")
     search_query = {
-        "size": 5,
+        "size": top_k,
         "query": {
             "bool": {
                 "must": {
@@ -53,6 +54,7 @@ def search(*args, **kwargs) -> List[Dict]:
             }
         }
     }    
+    
     response = es_client.search(index=index_name, body=search_query)
 
     #return [hit['_source']['content'] for hit in response['hits']['hits']]

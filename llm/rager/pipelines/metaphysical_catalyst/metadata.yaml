@@ -2,79 +2,90 @@ blocks:
 - all_upstream_blocks_executed: true
   color: null
   configuration:
+    file_path: rager/data_loaders/ingest_data.py
     file_source:
-      path: rager/data_loaders/magnetic_quantum.py
-  downstream_blocks: []
+      path: rager/data_loaders/ingest_data.py
+  downstream_blocks:
+  - chunk_data
   executor_config: null
   executor_type: local_python
   groups:
   - ingest
   has_callback: false
   language: python
-  name: Magnetic quantum
+  name: ingest_data
   retry_config: null
   status: executed
   timeout: null
   type: data_loader
   upstream_blocks: []
-  uuid: magnetic_quantum
+  uuid: ingest_data
 - all_upstream_blocks_executed: true
   color: null
   configuration:
+    file_path: rager/transformers/chunk_data.py
     file_source:
-      path: rager/transformers/plasmatic_cosmos.py
-  downstream_blocks: []
+      path: rager/transformers/chunk_data.py
+  downstream_blocks:
+  - tokenization
   executor_config: null
   executor_type: local_python
   groups:
   - chunking
   has_callback: false
   language: python
-  name: Plasmatic cosmos
+  name: chunk_data
   retry_config: null
-  status: failed
+  status: executed
   timeout: null
   type: transformer
-  upstream_blocks: []
-  uuid: plasmatic_cosmos
+  upstream_blocks:
+  - ingest_data
+  uuid: chunk_data
 - all_upstream_blocks_executed: true
   color: null
   configuration:
+    file_path: rager/transformers/tokenization.py
     file_source:
-      path: rager/transformers/zephyrous_cipher.py
-  downstream_blocks: []
+      path: rager/transformers/tokenization.py
+  downstream_blocks:
+  - embeddings
   executor_config: null
   executor_type: local_python
   groups:
   - tokenization
   has_callback: false
   language: python
-  name: Zephyrous cipher
+  name: tokenization
   retry_config: null
-  status: not_executed
+  status: executed
   timeout: null
   type: transformer
-  upstream_blocks: []
-  uuid: zephyrous_cipher
+  upstream_blocks:
+  - chunk_data
+  uuid: tokenization
 - all_upstream_blocks_executed: true
   color: null
   configuration:
+    file_path: rager/transformers/embeddings.py
     file_source:
-      path: rager/transformers/cryptic_quasar.py
-  downstream_blocks: []
+      path: rager/transformers/embeddings.py
+  downstream_blocks:
+  - export_to_vectordb
   executor_config: null
   executor_type: local_python
   groups:
   - embed
   has_callback: false
   language: python
-  name: Cryptic quasar
+  name: embeddings
   retry_config: null
-  status: not_executed
+  status: executed
   timeout: null
   type: transformer
-  upstream_blocks: []
-  uuid: cryptic_quasar
+  upstream_blocks:
+  - tokenization
+  uuid: embeddings
 - all_upstream_blocks_executed: true
   color: null
   configuration:
@@ -88,8 +99,9 @@ blocks:
       path: /home/src/llm/rager/data_exporters/astral_quasar.py
       relative_path: llm/rager/data_exporters/astral_quasar.py
       size: 2054
+    file_path: rager/data_exporters/export_to_vectordb.py
     file_source:
-      path: rager/data_exporters/astral_quasar.py
+      path: rager/data_exporters/export_to_vectordb.py
     templates:
       elasticsearch:
         variables:
@@ -106,13 +118,14 @@ blocks:
   - vector_database
   has_callback: false
   language: python
-  name: Astral quasar
+  name: export_to_vectordb
   retry_config: null
-  status: failed
+  status: executed
   timeout: null
   type: data_exporter
-  upstream_blocks: []
-  uuid: astral_quasar
+  upstream_blocks:
+  - embeddings
+  uuid: export_to_vectordb
 - all_upstream_blocks_executed: true
   color: null
   configuration:
@@ -126,14 +139,15 @@ blocks:
       path: /home/src/llm/rager/data_loaders/chimeric_behemoth.py
       relative_path: llm/rager/data_loaders/chimeric_behemoth.py
       size: 2030
+    file_path: rager/data_loaders/retrivial.py
     file_source:
-      path: rager/data_loaders/chimeric_behemoth.py
+      path: rager/data_loaders/retrivial.py
     templates:
       elasticsearch:
         variables:
           chunk_column: document_id
           connection_string: http://elasticsearch:9200
-          index_name: documents_20240819_0934
+          index_name: documents_20240821_5834
           vector_column_name: embedding
   downstream_blocks: []
   executor_config: null
@@ -142,32 +156,13 @@ blocks:
   - iterative_retrieval
   has_callback: false
   language: python
-  name: Chimeric behemoth
+  name: retrivial
   retry_config: null
-  status: not_executed
+  status: executed
   timeout: null
   type: data_loader
   upstream_blocks: []
-  uuid: chimeric_behemoth
-- all_upstream_blocks_executed: true
-  color: null
-  configuration:
-    file_source:
-      path: rager/custom/neon_elysium.py
-  downstream_blocks: []
-  executor_config: null
-  executor_type: local_python
-  groups:
-  - contextualization
-  has_callback: false
-  language: python
-  name: Neon elysium
-  retry_config: null
-  status: not_executed
-  timeout: null
-  type: custom
-  upstream_blocks: []
-  uuid: neon_elysium
+  uuid: retrivial
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}
@@ -175,7 +170,6 @@ conditionals: []
 created_at: '2024-08-19 17:30:17.715485+00:00'
 data_integration: null
 description: null
-execution_framework: rag
 executor_config: {}
 executor_count: 1
 executor_type: null
@@ -192,6 +186,7 @@ tags: []
 type: python
 uuid: metaphysical_catalyst
 variables:
-  index_name: documents_20240819_0934
+  file_id: 1T3MdwUvqCL3jrh3d3VCXQ8xE0UqRzI3bfgpfBq3ZWG0
+  index_name: documents_20240821_3424
 variables_dir: /home/src/mage_data/rager
 widgets: []

@@ -40,7 +40,7 @@ def transform(data, *args, **kwargs):
         doc['document_id'] = generate_document_id(doc)
         documents.append(doc)
 
-    # print(len(documents))
+    print(len(documents))
 
     return documents
 

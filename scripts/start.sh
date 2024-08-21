@@ -1,5 +1,5 @@
 #!/bin/bash
 
-PROJECT_NAME=llm
-MAGE_CODE_PATH=/home/src
+export PROJECT_NAME=llm
+export MAGE_CODE_PATH=/home/src
 docker compose up
